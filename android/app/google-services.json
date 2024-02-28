@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "792267200874",
+    "project_id": "heritagemapapp",
+    "storage_bucket": "heritagemapapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792267200874:android:520542b930cdd0e88c2d13",
+        "android_client_info": {
+          "package_name": "com.example.heritage_map"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvcjgMRP6QEK5zZChsLvgRa9BrQsxhqSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
