@@ -9,6 +9,7 @@ import 'package:heritage_map/presentation/boarding_page/screen/boarding_screen.d
 import 'package:heritage_map/routes/app.route.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// check screen
 int? initialScreen;
 
 void main() async {
