@@ -221,7 +221,7 @@ class _AddFutsalPageState extends ConsumerState<AddPlaceScreen> {
                   });
                 },
                 child: const Ctext(
-                  text: "Add Logo",
+                  text: "Add Accessibility Icon",
                 )),
             logo == null
                 ? const SizedBox.shrink()

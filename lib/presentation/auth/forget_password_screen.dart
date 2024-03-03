@@ -11,7 +11,7 @@ import 'package:heritage_map/data/%20local%20storage/local_save_data.dart';
 import 'package:heritage_map/data/%20local%20storage/local_storge.dart';
 import 'package:heritage_map/data/service/auth_service.dart';
 import 'package:heritage_map/presentation/auth/login_screen.dart';
-import 'package:heritage_map/presentation/home/screen/home_screen.dart';
+// import 'package:heritage_map/presentation/home/screen/home_screen.dart';
 import 'package:heritage_map/widget/my_btn.dart';
 import 'package:heritage_map/widget/text_field.dart';
 import 'package:heritage_map/widget/text_widget.dart';

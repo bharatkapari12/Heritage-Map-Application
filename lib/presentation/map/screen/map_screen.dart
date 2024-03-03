@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
 import 'package:heritage_map/core/const/app_color.dart';
-
 import 'package:heritage_map/provider/place_provider.dart';
 import 'package:heritage_map/widget/text_widget.dart';
 import 'package:latlong2/latlong.dart';
@@ -17,21 +14,6 @@ class MapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Create a MapController to control the map
     MapController mapController = MapController();
-    // final currentLocationController = ref.read(currentLocationProvider);
-
-    // Function to handle marker tap
-    // void onMarkerTap(LatLng markerLocation) async {
-    //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    //   LatLng currentLocation = LatLng(position.latitude, position.longitude);
-
-    //   ref.read(polylineValueProvider.notifier).state = Polyline(
-    //     points: [currentLocation, markerLocation],
-    //     color: Colors.blue,
-    //     strokeWidth: 3.0,
-    //   );
-    //   ref.read(tapLatLonValueProvider.notifier).state = markerLocation;
-    //   ref.read(currentLatLonValueProvider.notifier).state = currentLocation;
-    //     }
 
     final tapValue = ref.watch(tapLatLonValueProvider);
     final place = ref.watch(placeDataProvider);
@@ -60,7 +42,8 @@ class MapScreen extends ConsumerWidget {
                       ),
                       children: [
                         TileLayer(
-                          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           userAgentPackageName: 'com.example.app',
                         ),
                         MarkerLayer(
@@ -130,7 +113,8 @@ class MapScreen extends ConsumerWidget {
                         // ),
                         RichAttributionWidget(
                           attributions: [
-                            TextSourceAttribution('OpenStreetMap contributors', onTap: () {}),
+                            TextSourceAttribution('OpenStreetMap contributors',
+                                onTap: () {}),
                           ],
                         ),
                       ],
@@ -158,7 +142,8 @@ class MapScreen extends ConsumerWidget {
             MaterialButton(
               onPressed: () {
                 // Zoom In
-                mapController.move(mapController.camera.center, mapController.camera.zoom + 1.0);
+                mapController.move(mapController.camera.center,
+                    mapController.camera.zoom + 1.0);
               },
               child: const Icon(Icons.zoom_in),
             ),
@@ -166,7 +151,8 @@ class MapScreen extends ConsumerWidget {
             MaterialButton(
               onPressed: () {
                 // Zoom Out
-                mapController.move(mapController.camera.center, mapController.camera.zoom - 1.0);
+                mapController.move(mapController.camera.center,
+                    mapController.camera.zoom - 1.0);
               },
               child: const Icon(Icons.zoom_out),
             ),

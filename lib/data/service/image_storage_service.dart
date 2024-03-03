@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class IamgeStorage{
+class IamgeStorage {
   FirebaseFirestore storage = FirebaseFirestore.instance;
 
-    Future storeImage({
+  Future storeImage({
     required File photo,
     required String name,
-   
-
   }) async {
     try {
       UploadTask? uploadTask;
@@ -22,20 +20,21 @@ class IamgeStorage{
       final snap = await uploadTask.whenComplete(() {});
       final urls = await snap.ref.getDownloadURL();
       var user = storage.collection('sites').doc(name);
-      await user.update({'photo': urls,});
+      await user.update({
+        'photo': urls,
+      });
     } catch (e) {
       throw Exception(e.toString());
     }
   }
-    Future storeIcon({
+
+  Future storeIcon({
     required File photo,
     required String name,
-   
-
   }) async {
     try {
       UploadTask? uploadTask;
-      var ref = FirebaseStorage.instance.ref().child('sites').child(name);
+      var ref = FirebaseStorage.instance.ref().child('sites').child("logo_$name");
       ref.putFile(photo);
 
       uploadTask = ref.putFile(photo);
@@ -43,13 +42,15 @@ class IamgeStorage{
       final snap = await uploadTask.whenComplete(() {});
       final urls = await snap.ref.getDownloadURL();
       var user = storage.collection('sites').doc(name);
-      await user.update({'logo': urls,});
+      await user.update({
+        'logo': urls,
+      });
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
- Future<void> addPhotos({
+  Future<void> addPhotos({
     required List<File> photos,
     required String name,
   }) async {
@@ -61,7 +62,8 @@ class IamgeStorage{
         // print("cloud =>" + photos.length.toString());
 
         UploadTask? uploadTask;
-        var ref = FirebaseStorage.instance.ref().child('sites').child('${name}_$i');
+        var ref =
+            FirebaseStorage.instance.ref().child('sites').child('${name}_$i');
         uploadTask = ref.putFile(photos[i]);
         await uploadTask.whenComplete(() {});
         final url = await ref.getDownloadURL();
@@ -76,5 +78,4 @@ class IamgeStorage{
       throw Exception(e.toString());
     }
   }
-
 }

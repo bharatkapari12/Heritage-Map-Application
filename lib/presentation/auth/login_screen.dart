@@ -173,7 +173,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         child: CircularProgressIndicator(),
                       )
                     : myBtn(
-                        "Sign up",
+                        "Sign In",
                         tap: () async {
                           if (formKey1.currentState!.validate()) {
                             try {

@@ -48,30 +48,47 @@ class IndividualScreen extends ConsumerWidget {
                     ),
                   ),
                   FutureBuilder(
-                      future: LocalStorage().gettoken(value: LocalSaveData.email),
+                      future:
+                          LocalStorage().gettoken(value: LocalSaveData.email),
                       builder: (context, snap) {
                         return Row(
                           children: [
                             FavBtn(value: model.name ?? "Na"),
-                            if (snap.data.toString() == LocalSaveData.adminEmail)
+                            if (snap.data.toString() ==
+                                LocalSaveData.adminEmail)
                               Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: PopupMenuButton(
                                   onSelected: (String value) async {
                                     if (value == 'edit') {
-                                      if (ref.watch(selectedlatProvider) == 0.0) {
-                                        ref.read(selectedlatProvider.notifier).state = model.lat ?? 0.0;
+                                      if (ref.watch(selectedlatProvider) ==
+                                          0.0) {
+                                        ref
+                                            .read(selectedlatProvider.notifier)
+                                            .state = model.lat ?? 0.0;
                                       }
-                                      if (ref.watch(selectedlonProvider) == 0.0) {
-                                        ref.read(selectedlonProvider.notifier).state = model.lon ?? 0.0;
+                                      if (ref.watch(selectedlonProvider) ==
+                                          0.0) {
+                                        ref
+                                            .read(selectedlonProvider.notifier)
+                                            .state = model.lon ?? 0.0;
                                       }
-                                      NavigatorService.pushNamed(EditPlaceScreen.routeName, arguments: model);
+                                      NavigatorService.pushNamed(
+                                          EditPlaceScreen.routeName,
+                                          arguments: model);
                                     }
                                     if (value == 'delete') {
-                                      await SiteRepo().deleteSite(model.id ?? 'Na').then((value) {
-                                        ref.read(navIndexProvider.notifier).state = 0;
+                                      await SiteRepo()
+                                          .deleteSite(model.id ?? 'Na')
+                                          .then((value) {
+                                        ref
+                                            .read(navIndexProvider.notifier)
+                                            .state = 0;
                                         Navigator.pushReplacementNamed(
-                                            NavigatorService.navigatorKey.currentContext ?? context, NavigationScreen.routeName);
+                                            NavigatorService.navigatorKey
+                                                    .currentContext ??
+                                                context,
+                                            NavigationScreen.routeName);
                                       });
                                     }
                                   },
@@ -165,7 +182,8 @@ class IndividualScreen extends ConsumerWidget {
           GridView.builder(
               primary: false,
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3),
               itemCount: showAll ? model.images?.length : 3,
               itemBuilder: (context, index) {
                 return Container(
@@ -294,7 +312,8 @@ class IndividualScreen extends ConsumerWidget {
                     5,
                     (index) => Icon(
                       Icons.star_rate_rounded,
-                      color: index == 4 ? AppColor.white : AppColor.primaryColor,
+                      color:
+                          index == 4 ? AppColor.white : AppColor.primaryColor,
                     ),
                   ),
                 ),
@@ -352,7 +371,8 @@ class IndividualScreenMap extends StatelessWidget {
                   ),
                   children: [
                     TileLayer(
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.example.app',
                     ),
                     MarkerLayer(
@@ -381,7 +401,8 @@ class IndividualScreenMap extends StatelessWidget {
                     ),
                     RichAttributionWidget(
                       attributions: [
-                        TextSourceAttribution('OpenStreetMap contributors', onTap: () {}),
+                        TextSourceAttribution('OpenStreetMap contributors',
+                            onTap: () {}),
                       ],
                     ),
                   ],
@@ -401,7 +422,8 @@ class IndividualScreenMap extends StatelessWidget {
                       MaterialButton(
                         onPressed: () {
                           // Zoom In
-                          mapController.move(mapController.camera.center, mapController.camera.zoom + 1.0);
+                          mapController.move(mapController.camera.center,
+                              mapController.camera.zoom + 1.0);
                         },
                         child: const Icon(Icons.zoom_in),
                       ),
@@ -409,7 +431,8 @@ class IndividualScreenMap extends StatelessWidget {
                       MaterialButton(
                         onPressed: () {
                           // Zoom Out
-                          mapController.move(mapController.camera.center, mapController.camera.zoom - 1.0);
+                          mapController.move(mapController.camera.center,
+                              mapController.camera.zoom - 1.0);
                         },
                         child: const Icon(Icons.zoom_out),
                       ),
