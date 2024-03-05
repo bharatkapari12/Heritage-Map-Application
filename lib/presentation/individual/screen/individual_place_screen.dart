@@ -10,11 +10,9 @@ import 'package:heritage_map/data/model/place_model.dart';
 import 'package:heritage_map/data/service/site_repo.dart';
 import 'package:heritage_map/presentation/add/edit_place_screen.dart';
 import 'package:heritage_map/presentation/bottom_nav/bottom_nav_screen.dart';
-
 import 'package:heritage_map/provider/base_provider.dart';
 import 'package:heritage_map/provider/place_provider.dart';
 import 'package:heritage_map/widget/fab_btn.dart';
-
 import 'package:heritage_map/widget/text_widget.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -48,47 +46,30 @@ class IndividualScreen extends ConsumerWidget {
                     ),
                   ),
                   FutureBuilder(
-                      future:
-                          LocalStorage().gettoken(value: LocalSaveData.email),
+                      future: LocalStorage().gettoken(value: LocalSaveData.email),
                       builder: (context, snap) {
                         return Row(
                           children: [
                             FavBtn(value: model.name ?? "Na"),
-                            if (snap.data.toString() ==
-                                LocalSaveData.adminEmail)
+                            if (snap.data.toString() == LocalSaveData.adminEmail)
                               Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: PopupMenuButton(
                                   onSelected: (String value) async {
                                     if (value == 'edit') {
-                                      if (ref.watch(selectedlatProvider) ==
-                                          0.0) {
-                                        ref
-                                            .read(selectedlatProvider.notifier)
-                                            .state = model.lat ?? 0.0;
+                                      if (ref.watch(selectedlatProvider) == 0.0) {
+                                        ref.read(selectedlatProvider.notifier).state = model.lat ?? 0.0;
                                       }
-                                      if (ref.watch(selectedlonProvider) ==
-                                          0.0) {
-                                        ref
-                                            .read(selectedlonProvider.notifier)
-                                            .state = model.lon ?? 0.0;
+                                      if (ref.watch(selectedlonProvider) == 0.0) {
+                                        ref.read(selectedlonProvider.notifier).state = model.lon ?? 0.0;
                                       }
-                                      NavigatorService.pushNamed(
-                                          EditPlaceScreen.routeName,
-                                          arguments: model);
+                                      NavigatorService.pushNamed(EditPlaceScreen.routeName, arguments: model);
                                     }
                                     if (value == 'delete') {
-                                      await SiteRepo()
-                                          .deleteSite(model.id ?? 'Na')
-                                          .then((value) {
-                                        ref
-                                            .read(navIndexProvider.notifier)
-                                            .state = 0;
+                                      await SiteRepo().deleteSite(model.id ?? 'Na').then((value) {
+                                        ref.read(navIndexProvider.notifier).state = 0;
                                         Navigator.pushReplacementNamed(
-                                            NavigatorService.navigatorKey
-                                                    .currentContext ??
-                                                context,
-                                            NavigationScreen.routeName);
+                                            NavigatorService.navigatorKey.currentContext ?? context, NavigationScreen.routeName);
                                       });
                                     }
                                   },
@@ -182,8 +163,7 @@ class IndividualScreen extends ConsumerWidget {
           GridView.builder(
               primary: false,
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
               itemCount: showAll ? model.images?.length : 3,
               itemBuilder: (context, index) {
                 return Container(
@@ -272,28 +252,33 @@ class IndividualScreen extends ConsumerWidget {
                 text: model.name ?? 'NA',
                 size: 20,
                 line: 2,
+                align: TextAlign.start,
                 weight: FontWeight.w600,
                 color: AppColor.white,
               ),
             ),
-            Row(
-              children: [
-                const Image(
-                  image: AssetImage('assets/images/location.png'),
-                  color: AppColor.white,
-                ),
-                AppSize.width15,
-                SizedBox(
-                  width: 290,
-                  child: Ctext(
-                    line: 2,
-                    text: model.location ?? "Na",
-                    size: 14,
-                    weight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Image(
+                    image: AssetImage('assets/images/location.png'),
                     color: AppColor.white,
                   ),
-                ),
-              ],
+                  AppSize.width15,
+                  SizedBox(
+                    width: 290,
+                    child: Ctext(
+                      line: 2,
+                      text: model.location ?? "Na",
+                      size: 14,
+                      align: TextAlign.start,
+                      weight: FontWeight.w500,
+                      color: AppColor.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -306,23 +291,35 @@ class IndividualScreen extends ConsumerWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: List.generate(
-                    5,
-                    (index) => Icon(
-                      Icons.star_rate_rounded,
-                      color:
-                          index == 4 ? AppColor.white : AppColor.primaryColor,
+                  children: [
+                    Row(
+                      children: List.generate(
+                        5,
+                        (index) => Icon(
+                          Icons.star_rate_rounded,
+                          color: index == 4 ? AppColor.white : AppColor.primaryColor,
+                        ),
+                      ),
                     ),
-                  ),
+                    AppSize.width15,
+                    Ctext(
+                      text: model.rating ?? '4.6',
+                      size: 16,
+                      weight: FontWeight.w600,
+                      color: AppColor.white,
+                    ),
+                  ],
                 ),
-                AppSize.width15,
-                Ctext(
-                  text: model.rating ?? '4.6',
-                  size: 16,
-                  weight: FontWeight.w600,
-                  color: AppColor.white,
+                Image(
+                  height: 40,
+                  width: 40,
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    model.logo ?? 'NA',
+                  ),
                 ),
               ],
             )
@@ -371,8 +368,7 @@ class IndividualScreenMap extends StatelessWidget {
                   ),
                   children: [
                     TileLayer(
-                      urlTemplate:
-                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.example.app',
                     ),
                     MarkerLayer(
@@ -383,11 +379,17 @@ class IndividualScreenMap extends StatelessWidget {
                           width: 200,
                           child: Column(
                             children: [
-                              Ctext(
-                                line: 2,
-                                text: model.name ?? 'NA',
-                                size: 14,
-                                weight: FontWeight.w400,
+                              Card(
+                                surfaceTintColor: Colors.cyan,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Ctext(
+                                    line: 2,
+                                    text: model.name ?? 'NA',
+                                    size: 14,
+                                    weight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
                               const Icon(
                                 Icons.location_on,
@@ -401,8 +403,7 @@ class IndividualScreenMap extends StatelessWidget {
                     ),
                     RichAttributionWidget(
                       attributions: [
-                        TextSourceAttribution('OpenStreetMap contributors',
-                            onTap: () {}),
+                        TextSourceAttribution('OpenStreetMap contributors', onTap: () {}),
                       ],
                     ),
                   ],
@@ -422,8 +423,7 @@ class IndividualScreenMap extends StatelessWidget {
                       MaterialButton(
                         onPressed: () {
                           // Zoom In
-                          mapController.move(mapController.camera.center,
-                              mapController.camera.zoom + 1.0);
+                          mapController.move(mapController.camera.center, mapController.camera.zoom + 1.0);
                         },
                         child: const Icon(Icons.zoom_in),
                       ),
@@ -431,8 +431,7 @@ class IndividualScreenMap extends StatelessWidget {
                       MaterialButton(
                         onPressed: () {
                           // Zoom Out
-                          mapController.move(mapController.camera.center,
-                              mapController.camera.zoom - 1.0);
+                          mapController.move(mapController.camera.center, mapController.camera.zoom - 1.0);
                         },
                         child: const Icon(Icons.zoom_out),
                       ),

@@ -100,18 +100,43 @@ class FavScreen extends ConsumerWidget {
                                             ]),
                                             child: Row(
                                               children: [
-                                                Container(
-                                                  width: 140,
-                                                  margin: const EdgeInsets.all(13),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(18),
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                        filteredData[index]['photo'],
+                                                Stack(
+                                                  children: [
+                                                    Container(
+                                                      width: 140,
+                                                      margin: const EdgeInsets.all(13),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(18),
+                                                        color: AppColor.black.withOpacity(0.5),
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                            filteredData[index]['photo'],
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
+                                                    Container(
+                                                      width: 140,
+                                                      margin: const EdgeInsets.all(13),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(18),
+                                                        color: AppColor.black.withOpacity(0.3),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      bottom: 20,
+                                                      left: 20,
+                                                      child: Image(
+                                                        height: 40,
+                                                        width: 40,
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                          filteredData[index]['logo'],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                                 Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,6 +149,7 @@ class FavScreen extends ConsumerWidget {
                                                             text: filteredData[index]['name'],
                                                             size: 18,
                                                             line: 3,
+                                                            align: TextAlign.start,
                                                             weight: FontWeight.w600,
                                                             color: AppColor.black,
                                                           ),

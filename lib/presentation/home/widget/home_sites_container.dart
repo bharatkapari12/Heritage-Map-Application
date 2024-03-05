@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:heritage_map/core/const/app_color.dart';
@@ -83,7 +82,7 @@ class HomeSitesContainer extends ConsumerWidget {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(17),
-                                    color: AppColor.black.withOpacity(0.2),
+                                    color: AppColor.black.withOpacity(0.5),
                                   ),
                                   padding: const EdgeInsets.all(6),
                                   child: Column(
@@ -94,34 +93,52 @@ class HomeSitesContainer extends ConsumerWidget {
                                         child: FavBtn(value: filteredDocs[index]['name']),
                                       ),
                                       const Spacer(),
-                                      SizedBox(
-                                        width: 160,
-                                        child: Ctext(
-                                          text: filteredDocs[index]['name'],
-                                          size: 20,
-                                          line: 1,
-                                          weight: FontWeight.w600,
-                                          color: AppColor.white,
-                                        ),
-                                      ),
                                       Row(
                                         children: [
-                                          const Image(
-                                            image: AssetImage('assets/images/location.png'),
-                                            color: AppColor.white,
+                                          Image(
+                                            height: 40,
+                                            width: 40,
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              filteredDocs[index]['logo'],
+                                            ),
                                           ),
-                                          AppSize.width15,
+                                          AppSize.width8,
                                           SizedBox(
-                                            width: 140,
+                                            width: 130,
                                             child: Ctext(
-                                              line: 1,
-                                              text: filteredDocs[index]['location'],
+                                              text: filteredDocs[index]['name'],
                                               size: 14,
-                                              weight: FontWeight.w500,
+                                              line: 2,
+                                              align: TextAlign.start,
+                                              weight: FontWeight.w600,
                                               color: AppColor.white,
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            const Image(
+                                              image: AssetImage('assets/images/location.png'),
+                                              color: AppColor.white,
+                                            ),
+                                            AppSize.width8,
+                                            SizedBox(
+                                              width: 130,
+                                              child: Ctext(
+                                                line: 1,
+                                                text: filteredDocs[index]['location'],
+                                                size: 12,
+                                                align: TextAlign.start,
+                                                weight: FontWeight.w500,
+                                                color: AppColor.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       Row(
                                         children: [

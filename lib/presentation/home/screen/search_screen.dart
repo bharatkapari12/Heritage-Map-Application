@@ -63,8 +63,7 @@ class SearchScreen extends ConsumerWidget {
                               return GestureDetector(
                                 onTap: () {
                                   final PlaceModel model = PlaceModel(
-                                              id: filteredData[index].id,
-
+                                    id: filteredData[index].id,
                                     name: filteredData[index]['name'],
                                     lat: filteredData[index]['lat'],
                                     lon: filteredData[index]['lon'],
@@ -76,8 +75,7 @@ class SearchScreen extends ConsumerWidget {
                                     info: filteredData[index]['info'],
                                     explorePeople: filteredData[index]['explorePeople'],
                                     rating: filteredData[index]['rating'],
-                              category: filteredData[index]['category'],
-
+                                    category: filteredData[index]['category'],
                                     email: snap.data,
                                   );
                                   NavigatorService.pushNamed(IndividualImageScreen.routeName, arguments: model);
@@ -91,18 +89,42 @@ class SearchScreen extends ConsumerWidget {
                                   ]),
                                   child: Row(
                                     children: [
-                                      Container(
-                                        width: 140,
-                                        margin: const EdgeInsets.all(13),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(18),
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                              filteredData[index]['photo'],
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            width: 140,
+                                            margin: const EdgeInsets.all(13),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(18),
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                  filteredData[index]['photo'],
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                          Container(
+                                            width: 140,
+                                            margin: const EdgeInsets.all(13),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(18),
+                                              color: AppColor.black.withOpacity(0.3),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 20,
+                                            left: 20,
+                                            child: Image(
+                                              height: 40,
+                                              width: 40,
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                filteredData[index]['logo'],
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,8 +135,9 @@ class SearchScreen extends ConsumerWidget {
                                                 width: 110,
                                                 child: Ctext(
                                                   text: filteredData[index]['name'],
-                                                  size: 18,
+                                                  size: 15,
                                                   line: 3,
+                                                  align: TextAlign.start,
                                                   weight: FontWeight.w600,
                                                   color: AppColor.black,
                                                 ),

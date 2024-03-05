@@ -134,7 +134,8 @@ class AdminChat extends StatelessWidget {
                 future: LocalStorage().gettoken(value: LocalSaveData.email),
                 builder: (context, snap) {
                   return StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('messages').doc(sendId).collection('chats').orderBy('timestamp', descending: false).snapshots(),
+                      stream: _firestore.collection('Allmessages').orderBy('timestamp', descending: false).snapshots(),
+                      // stream: _firestore.collection('messages').doc(sendId).collection('chats').orderBy('timestamp', descending: false).snapshots(),
                       // stream: _firestore.collection('messages').doc(snap.data.toString()).collection('chats').snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
@@ -192,22 +193,38 @@ class AdminChat extends StatelessWidget {
                           if (currentUser != null) {
                             if (isAdmin) {
                               //admin
-                              _firestore.collection('messages').doc(sendId).collection('chats').add({
+                              _firestore.collection('Allmessages').add({
                                 'text': messageText,
                                 'sender': LocalSaveData.adminEmail,
                                 "receiver": sendId,
                                 'timestamp': FieldValue.serverTimestamp(),
                               });
                             } else {
-                              _firestore.collection('messages').doc(sendId).set({"id": sendId});
-
-                              _firestore.collection('messages').doc(sendId).collection('chats').add({
+                              _firestore.collection('Allmessages').add({
                                 'text': messageText,
                                 'sender': sendId,
                                 "receiver": LocalSaveData.adminEmail,
                                 'timestamp': FieldValue.serverTimestamp(),
                               });
                             }
+                            // if (currentUser != null) {
+                            //   if (isAdmin) {
+                            //     //admin
+                            //     _firestore.collection('messages').doc(sendId).collection('chats').add({
+                            //       'text': messageText,
+                            //       'sender': LocalSaveData.adminEmail,
+                            //       "receiver": sendId,
+                            //       'timestamp': FieldValue.serverTimestamp(),
+                            //     });
+                            //   } else {
+                            //     _firestore.collection('messages').doc(sendId).set({"id": sendId});
+                            //     _firestore.collection('messages').doc(sendId).collection('chats').add({
+                            //       'text': messageText,
+                            //       'sender': sendId,
+                            //       "receiver": LocalSaveData.adminEmail,
+                            //       'timestamp': FieldValue.serverTimestamp(),
+                            //     });
+                            //   }
                             //user
 
                             // _firestore.collection('messages').add({

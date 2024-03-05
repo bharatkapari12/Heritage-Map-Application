@@ -237,7 +237,7 @@ class _AddFutsalPageState extends ConsumerState<EditPlaceScreen> {
                   });
                 },
                 child: const Ctext(
-                  text: "Add Logo",
+                  text: "Add accessibility icon",
                 )),
             logo == null
                 ? Container(
